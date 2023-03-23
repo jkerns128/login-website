@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>Login Page</title>
+         <meta name="google-signin-client_id" content="197094391199-v24un4v7n44ajr0nrn9eoocdal4nt3ie.apps.googleusercontent.com">
+         <script src="https://accounts.google.com/gsi/client" async defer></script>
+         <style>
+            .center {
+              margin: auto;
+              margin-top: 10%;
+              width: 30%;
+              border: 3px solid black;
+              padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="center">
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="xuser">Username</label>
+                    <input type="text" name="username" class="form-control" />
+                </div>
+                <div class="form-group">     
+                    <label for="xpass">Password</label>
+                    <input type="password" name="password" class="form-control" />
+                </div>  
+                <input type="hidden" name="redirect" value="home-page" />
+                <input type="submit" class="btn btn-danger" value="Login" class="form-control" />
+            </form>
+
+            <form action="http://localhost:8080/accountCreation" method="GET">
+                <input type="submit" value="Create Account"/>
+            </form>
+
+            <div id="g_id_onload"
+                data-client_id="197094391199-v24un4v7n44ajr0nrn9eoocdal4nt3ie.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-login_uri="http://localhost:8080/oauth2callback"
+                data-nonce=""
+                data-auto_prompt="false">
+            </div>
+            <script>
+                var form = document.getElementById('login-form');
+                form.onsubmit = function(event){
+                    var xhr = new XMLHttpRequest();
+                    var data = new FormData(form);
+                    //open the request
+                    xhr.open('POST','http://localhost:8080/login')
+                    //send the form data
+                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    var json = JSON.stringify(Object.fromEntries(data));
+                    xhr.send(json);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == XMLHttpRequest.DONE) {
+                            form.reset(); //reset form after AJAX success.
+                            window.location.replace("http://localhost:8080/user");
+                        }
+                    }
+
+                    //Dont submit the form.
+                    return false; 
+                }
+            </script>
+            <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="outline"
+                    data-text="continue_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+            </div>
+        </div>
+    </body>
+</html>
