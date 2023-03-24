@@ -1,5 +1,3 @@
-/*=======INFORMATION=========*/
-//HTML problems: https://stackoverflow.com/questions/22195065/how-to-send-a-json-object-using-html-form-data 
 /*=======VARIABLES AND SETUP=========*/
 const CLIENT_ID = "197094391199-v24un4v7n44ajr0nrn9eoocdal4nt3ie.apps.googleusercontent.com"
 var cookieParser = require('cookie-parser')
